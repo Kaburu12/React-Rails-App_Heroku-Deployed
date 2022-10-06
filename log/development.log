@@ -1,0 +1,177 @@
+  [1m[35m (301.0ms)[0m  [1m[35mCREATE DATABASE "phase_4_deploying_demo_app_development" ENCODING = 'unicode'[0m
+  [1m[35m (185.0ms)[0m  [1m[35mCREATE DATABASE "phase_4_deploying_demo_app_test" ENCODING = 'unicode'[0m
+  [1m[35m (22.6ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (17.1ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT pg_try_advisory_lock(3304889991513602730)[0m
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateUsers (20210603193658)
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (17.9ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "username" character varying, "password_digest" character varying, "image_url" character varying, "bio" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (1.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20210603193658"]]
+  [1m[36mTRANSACTION (3.1ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateRecipes (20210603193805)
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (19.9ms)[0m  [1m[35mCREATE TABLE "recipes" ("id" bigserial primary key, "user_id" bigint NOT NULL, "title" character varying, "instructions" text, "minutes_to_complete" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_9606fce865"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (6.3ms)[0m  [1m[35mCREATE INDEX "index_recipes_on_user_id" ON "recipes" ("user_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.8ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20210603193805"]]
+  [1m[36mTRANSACTION (3.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.0ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (1.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2022-10-06 19:41:57.760160"], ["updated_at", "2022-10-06 19:41:57.760160"]]
+  [1m[36mTRANSACTION (2.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT pg_advisory_unlock(3304889991513602730)[0m
+  [1m[35m (1.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (1.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/api/me" for 127.0.0.1 at 2022-10-06 22:46:12 +0300
+  [1m[35m (1.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Api::UsersController#show as */*
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:11:in `authorize'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.39ms)
+Filter chain halted as :authorize rendered or redirected
+Completed 401 Unauthorized in 43ms (Views: 5.1ms | ActiveRecord: 5.0ms | Allocations: 4492)
+
+
+Started POST "/api/signup" for 127.0.0.1 at 2022-10-06 22:49:54 +0300
+Processing by Api::UsersController#create as */*
+  Parameters: {"username"=>"puttin12", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]", "image_url"=>"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRqc81ke--NsKKc_uM0J5z1DZHLcSMXv9wrA&usqp=CAU", "bio"=>"Be fearless and focus", "user"=>{"username"=>"puttin12", "image_url"=>"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRqc81ke--NsKKc_uM0J5z1DZHLcSMXv9wrA&usqp=CAU", "bio"=>"Be fearless and focus"}}
+[31mUnpermitted parameter: :user[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/users_controller.rb:5:in `create'
+  [1m[36mUser Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "puttin12"], ["LIMIT", 1]]
+  ↳ app/controllers/api/users_controller.rb:5:in `create'
+  [1m[36mUser Create (1.4ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "image_url", "bio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "puttin12"], ["password_digest", "$2a$12$Kmds3RPnCtl./JSV5GGZ1.yrGOX8AFYwIeq7ATa7IzMXlabbff.By"], ["image_url", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRqc81ke--NsKKc_uM0J5z1DZHLcSMXv9wrA&usqp=CAU"], ["bio", "Be fearless and focus"], ["created_at", "2022-10-06 19:49:55.113917"], ["updated_at", "2022-10-06 19:49:55.113917"]]
+  ↳ app/controllers/api/users_controller.rb:5:in `create'
+  [1m[36mTRANSACTION (5.1ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/users_controller.rb:5:in `create'
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (1.23ms)
+Completed 201 Created in 450ms (Views: 18.6ms | ActiveRecord: 13.1ms | Allocations: 11342)
+
+
+Started GET "/api/recipes" for 127.0.0.1 at 2022-10-06 22:49:55 +0300
+Processing by Api::RecipesController#index as */*
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:11:in `authorize'
+  [1m[36mRecipe Load (1.2ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes"[0m
+  ↳ app/controllers/api/recipes_controller.rb:4:in `index'
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (0.28ms)
+Completed 200 OK in 35ms (Views: 6.7ms | ActiveRecord: 2.0ms | Allocations: 2324)
+
+
+Started POST "/api/recipes" for 127.0.0.1 at 2022-10-06 22:50:26 +0300
+Processing by Api::RecipesController#create as */*
+  Parameters: {"title"=>"My Awesome Recipe", "instructions"=>"Here's how you make it.\n  \n## Ingredients\n\n- 1c Sugar\n- 1c Spice\n\n## Instructions\n\n**Mix** sugar and spice. _Bake_ for 30 minutes.\n  ", "minutes_to_complete"=>"30", "recipe"=>{"title"=>"My Awesome Recipe", "instructions"=>"Here's how you make it.\n  \n## Ingredients\n\n- 1c Sugar\n- 1c Spice\n\n## Instructions\n\n**Mix** sugar and spice. _Bake_ for 30 minutes.\n  ", "minutes_to_complete"=>"30"}}
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:11:in `authorize'
+[31mUnpermitted parameter: :recipe[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/recipes_controller.rb:8:in `create'
+  [1m[36mRecipe Create (2.0ms)[0m  [1m[32mINSERT INTO "recipes" ("user_id", "title", "instructions", "minutes_to_complete", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["user_id", 1], ["title", "My Awesome Recipe"], ["instructions", "Here's how you make it.\n  \n## Ingredients\n\n- 1c Sugar\n- 1c Spice\n\n## Instructions\n\n**Mix** sugar and spice. _Bake_ for 30 minutes.\n  "], ["minutes_to_complete", 30], ["created_at", "2022-10-06 19:50:26.279088"], ["updated_at", "2022-10-06 19:50:26.279088"]]
+  ↳ app/controllers/api/recipes_controller.rb:8:in `create'
+  [1m[36mTRANSACTION (2.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/recipes_controller.rb:8:in `create'
+[active_model_serializers] Rendered RecipeSerializer with ActiveModelSerializers::Adapter::Attributes (2.05ms)
+Completed 201 Created in 95ms (Views: 14.7ms | ActiveRecord: 12.1ms | Allocations: 10167)
+
+
+Started GET "/api/recipes" for 127.0.0.1 at 2022-10-06 22:50:26 +0300
+Processing by Api::RecipesController#index as */*
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:11:in `authorize'
+  [1m[36mRecipe Load (1.6ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes"[0m
+  ↳ app/controllers/api/recipes_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/api/recipes_controller.rb:4:in `index'
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (13.04ms)
+Completed 200 OK in 30ms (Views: 21.0ms | ActiveRecord: 2.5ms | Allocations: 2576)
+
+
+Started POST "/api/recipes" for 127.0.0.1 at 2022-10-06 22:50:38 +0300
+Processing by Api::RecipesController#create as */*
+  Parameters: {"title"=>"My Awesome Recipe", "instructions"=>"Here's how you make it.\n  \n## Ingredients\n\n- 1c Sugar\n- 1c Spice\n\n## Instructions\n\n**Mix** sugar and spice. _Bake_ for 30 minutes.\n  ", "minutes_to_complete"=>"30", "recipe"=>{"title"=>"My Awesome Recipe", "instructions"=>"Here's how you make it.\n  \n## Ingredients\n\n- 1c Sugar\n- 1c Spice\n\n## Instructions\n\n**Mix** sugar and spice. _Bake_ for 30 minutes.\n  ", "minutes_to_complete"=>"30"}}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:11:in `authorize'
+[31mUnpermitted parameter: :recipe[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/recipes_controller.rb:8:in `create'
+  [1m[36mRecipe Create (1.1ms)[0m  [1m[32mINSERT INTO "recipes" ("user_id", "title", "instructions", "minutes_to_complete", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["user_id", 1], ["title", "My Awesome Recipe"], ["instructions", "Here's how you make it.\n  \n## Ingredients\n\n- 1c Sugar\n- 1c Spice\n\n## Instructions\n\n**Mix** sugar and spice. _Bake_ for 30 minutes.\n  "], ["minutes_to_complete", 30], ["created_at", "2022-10-06 19:50:38.404114"], ["updated_at", "2022-10-06 19:50:38.404114"]]
+  ↳ app/controllers/api/recipes_controller.rb:8:in `create'
+  [1m[36mTRANSACTION (7.0ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/recipes_controller.rb:8:in `create'
+[active_model_serializers] Rendered RecipeSerializer with ActiveModelSerializers::Adapter::Attributes (1.34ms)
+Completed 201 Created in 31ms (Views: 2.6ms | ActiveRecord: 9.3ms | Allocations: 3008)
+
+
+Started GET "/api/recipes" for 127.0.0.1 at 2022-10-06 22:50:38 +0300
+Processing by Api::RecipesController#index as */*
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:11:in `authorize'
+  [1m[36mRecipe Load (0.8ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes"[0m
+  ↳ app/controllers/api/recipes_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mCACHE User Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/api/recipes_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mCACHE User Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/api/recipes_controller.rb:4:in `index'
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (28.66ms)
+Completed 200 OK in 49ms (Views: 41.2ms | ActiveRecord: 1.5ms | Allocations: 3432)
+
+
+Started DELETE "/api/logout" for 127.0.0.1 at 2022-10-06 22:50:45 +0300
+Processing by Api::SessionsController#destroy as */*
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:11:in `authorize'
+Completed 204 No Content in 9ms (ActiveRecord: 0.8ms | Allocations: 660)
+
+
+Started POST "/api/login" for 127.0.0.1 at 2022-10-06 22:50:56 +0300
+Processing by Api::SessionsController#create as */*
+  Parameters: {"username"=>"puttin12", "password"=>"[FILTERED]", "session"=>{"username"=>"puttin12", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "puttin12"], ["LIMIT", 1]]
+  ↳ app/controllers/api/sessions_controller.rb:5:in `create'
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.63ms)
+Completed 200 OK in 365ms (Views: 2.2ms | ActiveRecord: 0.6ms | Allocations: 974)
+
+
+Started GET "/api/recipes" for 127.0.0.1 at 2022-10-06 22:50:57 +0300
+Processing by Api::RecipesController#index as */*
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:11:in `authorize'
+  [1m[36mRecipe Load (0.7ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes"[0m
+  ↳ app/controllers/api/recipes_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/api/recipes_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/api/recipes_controller.rb:4:in `index'
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (12.07ms)
+Completed 200 OK in 22ms (Views: 16.6ms | ActiveRecord: 1.1ms | Allocations: 3471)
+
+
+Started DELETE "/api/logout" for 127.0.0.1 at 2022-10-06 22:51:08 +0300
+Processing by Api::SessionsController#destroy as */*
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:11:in `authorize'
+Completed 204 No Content in 5ms (ActiveRecord: 0.5ms | Allocations: 627)
+
+
+Started GET "/api/me" for ::1 at 2022-10-06 23:44:36 +0300
+  [1m[35m (1.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Api::UsersController#show as */*
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:11:in `authorize'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.28ms)
+Filter chain halted as :authorize rendered or redirected
+Completed 401 Unauthorized in 37ms (Views: 4.3ms | ActiveRecord: 4.8ms | Allocations: 4017)
+
+
+Started GET "/api/me" for ::1 at 2022-10-06 23:44:45 +0300
+Processing by Api::UsersController#show as */*
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:11:in `authorize'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.29ms)
+Filter chain halted as :authorize rendered or redirected
+Completed 401 Unauthorized in 23ms (Views: 3.9ms | ActiveRecord: 1.2ms | Allocations: 908)
+
+

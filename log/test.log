@@ -1,0 +1,334 @@
+  [1m[35m (56.6ms)[0m  [1m[35mDROP DATABASE IF EXISTS "phase_4_deploying_demo_app_test"[0m
+  [1m[35m (203.7ms)[0m  [1m[35mCREATE DATABASE "phase_4_deploying_demo_app_test" ENCODING = 'unicode'[0m
+  [1m[35mSQL (1.9ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (0.8ms)[0m  [1m[35mDROP TABLE IF EXISTS "recipes" CASCADE[0m
+  [1m[35m (25.2ms)[0m  [1m[35mCREATE TABLE "recipes" ("id" bigserial primary key, "user_id" bigint NOT NULL, "title" character varying, "instructions" text, "minutes_to_complete" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (10.6ms)[0m  [1m[35mCREATE INDEX "index_recipes_on_user_id" ON "recipes" ("user_id")[0m
+  [1m[35m (1.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "users" CASCADE[0m
+  [1m[35m (20.1ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "username" character varying, "password_digest" character varying, "image_url" character varying, "bio" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (8.0ms)[0m  [1m[35mALTER TABLE "recipes" ADD CONSTRAINT "fk_rails_9606fce865"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[35m (18.2ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (1.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (3.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20210603193805)[0m
+  [1m[35m (3.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20210603193658);
+
+[0m
+  [1m[35m (17.3ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.8ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (2.0ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "test"], ["created_at", "2022-10-06 21:35:33.156134"], ["updated_at", "2022-10-06 21:35:33.156134"]]
+  [1m[36mTRANSACTION (3.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.4ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::InternalMetadata Load (1.3ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (1.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (1.5ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "schema_sha1"], ["value", "717a654ec3732cd9fd432532128db566a6c4c955"], ["created_at", "2022-10-06 21:35:33.177806"], ["updated_at", "2022-10-06 21:35:33.177806"]]
+  [1m[36mTRANSACTION (3.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (1.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "test_user"], ["LIMIT", 1]]
+  [1m[36mUser Create (1.5ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "image_url", "bio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "test_user"], ["password_digest", "$2a$04$R9/8stmY3cgxJS24zCOTiOJx7nR/f.oecjFIDyWkmeC7qMUjS2pl."], ["image_url", "https://via.placeholder.com/150"], ["bio", "bio"], ["created_at", "2022-10-06 21:35:33.369203"], ["updated_at", "2022-10-06 21:35:33.369203"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "test_user"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.9ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "image_url", "bio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "test_user"], ["password_digest", "$2a$04$IOS6fwKaaxD48G8wwekYg.DL8Adf0XhqHrUqC3vLEQyrV7f9Q3A5O"], ["image_url", "https://via.placeholder.com/150"], ["bio", "bio"], ["created_at", "2022-10-06 21:35:33.456120"], ["updated_at", "2022-10-06 21:35:33.456120"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 AND "users"."id" != $2 LIMIT $3[0m  [["username", "test_user"], ["id", 2], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", ""], ["LIMIT", 1]]
+  [1m[36mUser Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2022-10-06 21:35:33.498129"], ["updated_at", "2022-10-06 21:35:33.498129"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Update (0.9ms)[0m  [1m[33mUPDATE "users" SET "username" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["username", "dummy value"], ["updated_at", "2022-10-06 21:35:33.503141"], ["id", 3]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "dummy value"], ["LIMIT", 1]]
+  [1m[36mUser Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "DUMMY VALUE"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "test_user"], ["LIMIT", 1]]
+  [1m[36mUser Create (1.0ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "image_url", "bio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "test_user"], ["password_digest", "$2a$04$cWO6BhiHkkG2ShccE7EDyeEbshiZ7YiItXjK4zfJtMgqO41W4xpiq"], ["image_url", "https://via.placeholder.com/150"], ["bio", "bio"], ["created_at", "2022-10-06 21:35:33.530911"], ["updated_at", "2022-10-06 21:35:33.530911"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "test_user"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "image_url", "bio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "test_user"], ["password_digest", "$2a$04$W2QPCYiknk9s8HXahCOOROWayRbL0KtBeHOjCcpWdEYwLkJF6sfue"], ["image_url", "https://via.placeholder.com/150"], ["bio", "bio"], ["created_at", "2022-10-06 21:35:33.549493"], ["updated_at", "2022-10-06 21:35:33.549493"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "test_user"], ["LIMIT", 1]]
+  [1m[36mUser Create (1.2ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "image_url", "bio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "test_user"], ["password_digest", "$2a$04$qyhe.XDUhizSqMrSR8MMYOkNQga96e6fgo5aCnqDeGj2tnKxRAA8S"], ["image_url", "https://via.placeholder.com/150"], ["bio", "bio"], ["created_at", "2022-10-06 21:35:33.566047"], ["updated_at", "2022-10-06 21:35:33.566047"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mRecipe Create (1.7ms)[0m  [1m[32mINSERT INTO "recipes" ("user_id", "title", "instructions", "minutes_to_complete", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["user_id", 6], ["title", "Rice"], ["instructions", "Measure 1 cup of rice in bowl of rice cooker. Wash rice. Fill with water to level indicated by manufacturer. Put bowl in rice cooker. Press 'Cook'. Enjoy!"], ["minutes_to_complete", 10], ["created_at", "2022-10-06 21:35:33.574073"], ["updated_at", "2022-10-06 21:35:33.574073"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mRecipe Create (1.3ms)[0m  [1m[32mINSERT INTO "recipes" ("user_id", "title", "instructions", "minutes_to_complete", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["user_id", 6], ["title", "Burnt Rice"], ["instructions", "Measure 1 cup of rice in bowl of rice cooker. Don't add any water. Put bowl in rice cooker. Press 'Cook'. Enjoy!"], ["minutes_to_complete", 10], ["created_at", "2022-10-06 21:35:33.583345"], ["updated_at", "2022-10-06 21:35:33.583345"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/login" for 127.0.0.1 at 2022-10-07 00:35:33 +0300
+  [1m[36mTRANSACTION (1.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "test_user"], ["LIMIT", 1]]
+  [1m[36mUser Create (1.2ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "image_url", "bio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "test_user"], ["password_digest", "$2a$04$QxsHUQaVspTPptvY6yiERu7nR2IEMpcLey5/yx5h7nMgvkUkZjsBW"], ["image_url", "https://via.placeholder.com/150"], ["bio", "bio"], ["created_at", "2022-10-06 21:35:33.610670"], ["updated_at", "2022-10-06 21:35:33.610670"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 7], ["LIMIT", 1]]
+  [1m[36mRecipe Create (1.1ms)[0m  [1m[32mINSERT INTO "recipes" ("user_id", "title", "instructions", "minutes_to_complete", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["user_id", 7], ["title", "Rice"], ["instructions", "Measure 1 cup of rice in bowl of rice cooker. Wash rice. Fill with water to level indicated by manufacturer. Put bowl in rice cooker. Press 'Cook'. Enjoy!"], ["minutes_to_complete", 10], ["created_at", "2022-10-06 21:35:33.620057"], ["updated_at", "2022-10-06 21:35:33.620057"]]
+  [1m[36mTRANSACTION (1.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 7], ["LIMIT", 1]]
+  [1m[36mRecipe Create (0.8ms)[0m  [1m[32mINSERT INTO "recipes" ("user_id", "title", "instructions", "minutes_to_complete", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["user_id", 7], ["title", "Burnt Rice"], ["instructions", "Measure 1 cup of rice in bowl of rice cooker. Don't add any water. Put bowl in rice cooker. Press 'Cook'. Enjoy!"], ["minutes_to_complete", 10], ["created_at", "2022-10-06 21:35:33.631193"], ["updated_at", "2022-10-06 21:35:33.631193"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/recipes" for 127.0.0.1 at 2022-10-07 00:35:33 +0300
+Processing by FallbackController#index as HTML
+  Parameters: {"path"=>"recipes"}
+  Rendering public/index.html
+  Rendered public/index.html (Duration: 0.1ms | Allocations: 6)
+Completed 200 OK in 8ms (Views: 7.7ms | ActiveRecord: 0.0ms | Allocations: 1086)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "test_user"], ["LIMIT", 1]]
+  [1m[36mUser Create (1.2ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "image_url", "bio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "test_user"], ["password_digest", "$2a$04$gY2lmcmUh5eizGrzWiOsAOuByFGnnm7AEtnVatd8AXwh70eHUB8Cy"], ["image_url", "https://via.placeholder.com/150"], ["bio", "bio"], ["created_at", "2022-10-06 21:35:33.686351"], ["updated_at", "2022-10-06 21:35:33.686351"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mRecipe Create (1.1ms)[0m  [1m[32mINSERT INTO "recipes" ("user_id", "title", "instructions", "minutes_to_complete", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["user_id", 8], ["title", "Rice"], ["instructions", "Measure 1 cup of rice in bowl of rice cooker. Wash rice. Fill with water to level indicated by manufacturer. Put bowl in rice cooker. Press 'Cook'. Enjoy!"], ["minutes_to_complete", 10], ["created_at", "2022-10-06 21:35:33.695729"], ["updated_at", "2022-10-06 21:35:33.695729"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mRecipe Create (1.1ms)[0m  [1m[32mINSERT INTO "recipes" ("user_id", "title", "instructions", "minutes_to_complete", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["user_id", 8], ["title", "Burnt Rice"], ["instructions", "Measure 1 cup of rice in bowl of rice cooker. Don't add any water. Put bowl in rice cooker. Press 'Cook'. Enjoy!"], ["minutes_to_complete", 10], ["created_at", "2022-10-06 21:35:33.704282"], ["updated_at", "2022-10-06 21:35:33.704282"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/recipes" for 127.0.0.1 at 2022-10-07 00:35:33 +0300
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "test_user"], ["LIMIT", 1]]
+  [1m[36mUser Create (1.0ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "image_url", "bio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "test_user"], ["password_digest", "$2a$04$xQrYpMVsmPp0MSt/6Ml1ceE6NikhGvvYaX3pQ0xHP6C5CrIAIUfk."], ["image_url", "https://via.placeholder.com/150"], ["bio", "bio"], ["created_at", "2022-10-06 21:35:33.723515"], ["updated_at", "2022-10-06 21:35:33.723515"]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/login" for 127.0.0.1 at 2022-10-07 00:35:33 +0300
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "test_user"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "image_url", "bio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "test_user"], ["password_digest", "$2a$04$0v6FU72rGy2Cs9grvBwdM.WW2aZimQO2qStznLUB5b39yl2LXgRBW"], ["image_url", "https://via.placeholder.com/150"], ["bio", "bio"], ["created_at", "2022-10-06 21:35:33.740627"], ["updated_at", "2022-10-06 21:35:33.740627"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/login" for 127.0.0.1 at 2022-10-07 00:35:33 +0300
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "test_user"], ["LIMIT", 1]]
+  [1m[36mUser Create (1.1ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "image_url", "bio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "test_user"], ["password_digest", "$2a$04$hbe9DrmmOQ9S32m7VA17ieyE6mM6BQRCY11IrKYyRfbfMzbjZ3mje"], ["image_url", "https://via.placeholder.com/150"], ["bio", "bio"], ["created_at", "2022-10-06 21:35:33.756252"], ["updated_at", "2022-10-06 21:35:33.756252"]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/login" for 127.0.0.1 at 2022-10-07 00:35:33 +0300
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "test_user"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.8ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "image_url", "bio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "test_user"], ["password_digest", "$2a$04$fnDdtsaSWmOPNNsj7I.0/.f/lrGdBfxTJ/t0es18XoMLEx8LcAJ8S"], ["image_url", "https://via.placeholder.com/150"], ["bio", "bio"], ["created_at", "2022-10-06 21:35:33.774227"], ["updated_at", "2022-10-06 21:35:33.774227"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/login" for 127.0.0.1 at 2022-10-07 00:35:33 +0300
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "test_user"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "image_url", "bio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "test_user"], ["password_digest", "$2a$04$PJD0E/X4Ow2u78vtLU8oLuOXftWuZ1DoKt0h/wh.V0WMs3AFiIAPy"], ["image_url", "https://via.placeholder.com/150"], ["bio", "bio"], ["created_at", "2022-10-06 21:35:33.790314"], ["updated_at", "2022-10-06 21:35:33.790314"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/login" for 127.0.0.1 at 2022-10-07 00:35:33 +0300
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (1.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "test_user"], ["LIMIT", 1]]
+  [1m[36mUser Create (3.3ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "image_url", "bio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "test_user"], ["password_digest", "$2a$04$X6Qu919Qyf711K1KUi5jYu1xXXYgf0xhE9F6Gl3vBgHDzyKUZJfg6"], ["image_url", "https://via.placeholder.com/150"], ["bio", "bio"], ["created_at", "2022-10-06 21:35:33.805912"], ["updated_at", "2022-10-06 21:35:33.805912"]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/login" for 127.0.0.1 at 2022-10-07 00:35:33 +0300
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "test_user"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.9ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "image_url", "bio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "test_user"], ["password_digest", "$2a$04$/TQ4VXA9XNj1UYUw1mvZjOJLAraO74i/wbNWMb91LFgl//blYkGgq"], ["image_url", "https://via.placeholder.com/150"], ["bio", "bio"], ["created_at", "2022-10-06 21:35:33.829122"], ["updated_at", "2022-10-06 21:35:33.829122"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/recipes" for 127.0.0.1 at 2022-10-07 00:35:33 +0300
+  [1m[36mTRANSACTION (1.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "test_user"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.9ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "image_url", "bio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "test_user"], ["password_digest", "$2a$04$A/pWinHGz..BFtkqKE6e4.rCrgY4DjUE0H1G7bWeXulxj0.spvrLm"], ["image_url", "https://via.placeholder.com/150"], ["bio", "bio"], ["created_at", "2022-10-06 21:35:33.846894"], ["updated_at", "2022-10-06 21:35:33.846894"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/recipes" for 127.0.0.1 at 2022-10-07 00:35:33 +0300
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "test_user"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.8ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "image_url", "bio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "test_user"], ["password_digest", "$2a$04$4iU0w4XoXYF3erwj6usx7.uavCClT4QsXC3GZkoyJp1Wer40Rg8ha"], ["image_url", "https://via.placeholder.com/150"], ["bio", "bio"], ["created_at", "2022-10-06 21:35:33.864232"], ["updated_at", "2022-10-06 21:35:33.864232"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/login" for 127.0.0.1 at 2022-10-07 00:35:33 +0300
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "test_user"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "image_url", "bio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "test_user"], ["password_digest", "$2a$04$E1JiKSLAChJl1.c4UMPy/OzXHDkeyE3ZyAF5KuPJiRiijUMnGM09S"], ["image_url", "https://via.placeholder.com/150"], ["bio", "bio"], ["created_at", "2022-10-06 21:35:33.881738"], ["updated_at", "2022-10-06 21:35:33.881738"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/login" for 127.0.0.1 at 2022-10-07 00:35:33 +0300
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "test_user"], ["LIMIT", 1]]
+  [1m[36mUser Create (1.0ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "image_url", "bio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "test_user"], ["password_digest", "$2a$04$7hsrRw6BOHQqPptoysazT.j6u/.hGfzmLQ9LvgOKAXkyGBEYTjEPO"], ["image_url", "https://via.placeholder.com/150"], ["bio", "bio"], ["created_at", "2022-10-06 21:35:33.907910"], ["updated_at", "2022-10-06 21:35:33.907910"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/login" for 127.0.0.1 at 2022-10-07 00:35:33 +0300
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "test_user"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.8ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "image_url", "bio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "test_user"], ["password_digest", "$2a$04$2Aw1nbF7dUuetZQ/tOjVy.KSk1vSmvBl59NT4U3gXx8ldO2mbVQca"], ["image_url", "https://via.placeholder.com/150"], ["bio", "bio"], ["created_at", "2022-10-06 21:35:33.924955"], ["updated_at", "2022-10-06 21:35:33.924955"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/login" for 127.0.0.1 at 2022-10-07 00:35:33 +0300
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "test_user"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.8ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "image_url", "bio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "test_user"], ["password_digest", "$2a$04$zRM6G5XyPscuq1e9d2T7au.jOd1gSIQbwQ1.GzjmEd2y7MEPBUqXC"], ["image_url", "https://via.placeholder.com/150"], ["bio", "bio"], ["created_at", "2022-10-06 21:35:33.942279"], ["updated_at", "2022-10-06 21:35:33.942279"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/login" for 127.0.0.1 at 2022-10-07 00:35:33 +0300
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "test_user"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.8ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "image_url", "bio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "test_user"], ["password_digest", "$2a$04$VaFiwjTG2kbCnKzZJDNS/uBVOPLywwCs4O7SxFXmQDlXgstuchFMe"], ["image_url", "https://via.placeholder.com/150"], ["bio", "bio"], ["created_at", "2022-10-06 21:35:33.958545"], ["updated_at", "2022-10-06 21:35:33.958545"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/login" for 127.0.0.1 at 2022-10-07 00:35:33 +0300
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "test_user"], ["LIMIT", 1]]
+  [1m[36mUser Create (1.0ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "image_url", "bio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "test_user"], ["password_digest", "$2a$04$EK0fohi.PxSQ7OMA5WdeqO9ZfThaozOz00gGdnPtPw70CoDT82eJS"], ["image_url", "https://via.placeholder.com/150"], ["bio", "bio"], ["created_at", "2022-10-06 21:35:33.975681"], ["updated_at", "2022-10-06 21:35:33.975681"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/login" for 127.0.0.1 at 2022-10-07 00:35:33 +0300
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "test_user"], ["LIMIT", 1]]
+  [1m[36mUser Create (1.0ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "image_url", "bio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "test_user"], ["password_digest", "$2a$04$OHb/79QOae3or34emxxIauNGEgzpEzRYTI5/hfoOIsGQ2y0kXfyVq"], ["image_url", "https://via.placeholder.com/150"], ["bio", "bio"], ["created_at", "2022-10-06 21:35:33.994210"], ["updated_at", "2022-10-06 21:35:33.994210"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/login" for 127.0.0.1 at 2022-10-07 00:35:34 +0300
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "test_user"], ["LIMIT", 1]]
+  [1m[36mUser Create (1.2ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "image_url", "bio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "test_user"], ["password_digest", "$2a$04$vx4u6UvjZH2OA5u1EONwJuwrz6b7ViH69zjjvLzt1SqsXS9TKbY3q"], ["image_url", "https://via.placeholder.com/150"], ["bio", "bio"], ["created_at", "2022-10-06 21:35:34.011797"], ["updated_at", "2022-10-06 21:35:34.011797"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/login" for 127.0.0.1 at 2022-10-07 00:35:34 +0300
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "test_user"], ["LIMIT", 1]]
+  [1m[36mUser Create (1.0ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "image_url", "bio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "test_user"], ["password_digest", "$2a$04$3dVIueT./PRk07hP4bcJAeBzEnwjFjoVW9YSnGeNTcSKHXTefdsP."], ["image_url", "https://via.placeholder.com/150"], ["bio", "bio"], ["created_at", "2022-10-06 21:35:34.031097"], ["updated_at", "2022-10-06 21:35:34.031097"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started DELETE "/logout" for 127.0.0.1 at 2022-10-07 00:35:34 +0300
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "test_user"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.8ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "image_url", "bio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "test_user"], ["password_digest", "$2a$04$VhqdzaH5WMR/GvIdr4B3aewYYC7tLT6HxmEWhNDrRvqaqUGZ8rfKG"], ["image_url", "https://via.placeholder.com/150"], ["bio", "bio"], ["created_at", "2022-10-06 21:35:34.052345"], ["updated_at", "2022-10-06 21:35:34.052345"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started DELETE "/logout" for 127.0.0.1 at 2022-10-07 00:35:34 +0300
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+Started POST "/signup" for 127.0.0.1 at 2022-10-07 00:35:34 +0300
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+Started POST "/signup" for 127.0.0.1 at 2022-10-07 00:35:34 +0300
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+Started POST "/signup" for 127.0.0.1 at 2022-10-07 00:35:34 +0300
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+Started POST "/signup" for 127.0.0.1 at 2022-10-07 00:35:34 +0300
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+Started POST "/signup" for 127.0.0.1 at 2022-10-07 00:35:34 +0300
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+Started POST "/signup" for 127.0.0.1 at 2022-10-07 00:35:34 +0300
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+Started POST "/signup" for 127.0.0.1 at 2022-10-07 00:35:34 +0300
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+Started POST "/signup" for 127.0.0.1 at 2022-10-07 00:35:34 +0300
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+Started POST "/signup" for 127.0.0.1 at 2022-10-07 00:35:34 +0300
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+Started POST "/signup" for 127.0.0.1 at 2022-10-07 00:35:34 +0300
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+Started POST "/signup" for 127.0.0.1 at 2022-10-07 00:35:34 +0300
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "test_user_2"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "image_url", "bio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "test_user_2"], ["password_digest", "$2a$04$F4LjlkFwvWdTGdyNFUQl..QAhcUmNYy5fCwfNvb3d5zVXS.mBZaKG"], ["image_url", "https://via.placeholder.com/150"], ["bio", "bio"], ["created_at", "2022-10-06 21:35:34.162303"], ["updated_at", "2022-10-06 21:35:34.162303"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "test_user_1"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "image_url", "bio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "test_user_1"], ["password_digest", "$2a$04$erWDlmotK3LXNmJaq.5kUu9VPTWhCzW8V7ghWGKbJ4fWgozYA/3pO"], ["image_url", "https://via.placeholder.com/150"], ["bio", "bio"], ["created_at", "2022-10-06 21:35:34.170889"], ["updated_at", "2022-10-06 21:35:34.170889"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/login" for 127.0.0.1 at 2022-10-07 00:35:34 +0300
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "test_user_2"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.8ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "image_url", "bio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "test_user_2"], ["password_digest", "$2a$04$yMGHUZ4jQcqplDQExXp.xuTbouQFMaJVWx4NmKKtXPly4GUcFT7ES"], ["image_url", "https://via.placeholder.com/150"], ["bio", "bio"], ["created_at", "2022-10-06 21:35:34.185244"], ["updated_at", "2022-10-06 21:35:34.185244"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "test_user_1"], ["LIMIT", 1]]
+  [1m[36mUser Create (1.0ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "image_url", "bio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "test_user_1"], ["password_digest", "$2a$04$KaNOJll7M/yCCOUY1JJazePjxxkyP2ecgl4BwxK/ntNX3flVVZx7m"], ["image_url", "https://via.placeholder.com/150"], ["bio", "bio"], ["created_at", "2022-10-06 21:35:34.195409"], ["updated_at", "2022-10-06 21:35:34.195409"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/login" for 127.0.0.1 at 2022-10-07 00:35:34 +0300
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "test_user_2"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.8ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "image_url", "bio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "test_user_2"], ["password_digest", "$2a$04$iMKbq34d33uStVpyDYXQruSA/PwRg/ng47UVAH0xCXgiCtOyiPStK"], ["image_url", "https://via.placeholder.com/150"], ["bio", "bio"], ["created_at", "2022-10-06 21:35:34.210737"], ["updated_at", "2022-10-06 21:35:34.210737"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "test_user_1"], ["LIMIT", 1]]
+  [1m[36mUser Create (1.0ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "image_url", "bio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "test_user_1"], ["password_digest", "$2a$04$nZYVP9bOZGhHHg66PCnh4u8M98F.RnUvqkEpZtOmsp/dWZGN6Rqqu"], ["image_url", "https://via.placeholder.com/150"], ["bio", "bio"], ["created_at", "2022-10-06 21:35:34.220373"], ["updated_at", "2022-10-06 21:35:34.220373"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/me" for 127.0.0.1 at 2022-10-07 00:35:34 +0300
+Processing by FallbackController#index as HTML
+  Parameters: {"path"=>"me"}
+  Rendering public/index.html
+  Rendered public/index.html (Duration: 0.1ms | Allocations: 4)
+Completed 200 OK in 2ms (Views: 1.4ms | ActiveRecord: 0.0ms | Allocations: 250)
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[31mROLLBACK[0m
